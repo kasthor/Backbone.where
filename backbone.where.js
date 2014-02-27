@@ -10,21 +10,21 @@ _.extend( Backbone.Collection.prototype,{
 _.extend( Backbone.Collection, {
   match_conditions: function( item, conditions ){
     var self = this;
-    for( var key in conditions ) {
+    var _eval = _(conditions).collect( function( _condition, key ){ 
       if( key == '$not' ) {
-        return ! Backbone.Collection.match_conditions( item, conditions[key] );
+        return ! Backbone.Collection.match_conditions( item, _condition );
       } else if ( key == '$or' ) {
-        var _result = _( conditions[key] ).collect( function( _conditions ){ 
+        var _result = _( _condition ).collect( function( _conditions ){ 
           return Backbone.Collection.match_conditions( item, _conditions );
         } )
         return _.any( _result );
-      } else if( _.isArray( conditions[ key ] ) ){
-        if ( ! _.include( conditions[key], item.get( key ) ) ){ return false; }
+      } else if( _.isArray( _condition ) ){
+        return _.include( _condition, item.get( key ) )
       } else{ 
-        if ( conditions[key] !== item.get(key) ) return false;  
+        return _condition == item.get(key)
       }
-    }  
+    });
 
-    return true;
+    return _.all( _eval );
   }
 })
