@@ -35,6 +35,13 @@
     ok( _(_test).all( function(m){ return m.get("a") == 1 && m.get("b") == 2 }) );
   });
 
+  test( "can do explicit .AND. queries", function(){
+    var _test = collection.where({ $and: [{ a: 1 }, { b: 2 }] })
+
+    ok( _test.length > 0 );
+    ok( _(_test).all( function(m){ return m.get("a") == 1 && m.get("b") == 2 }) );
+  })
+
   // NOT
 
   test("can do .NOT. queries", function(){

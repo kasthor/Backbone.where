@@ -18,6 +18,11 @@ _.extend( Backbone.Collection, {
           return Backbone.Collection.match_conditions( item, _conditions );
         } )
         return _.any( _result );
+      } else if ( key == '$and' ) { 
+        var _result = _( _condition ).collect( function( _conditions ){ 
+          return Backbone.Collection.match_conditions( item, _conditions );
+        } )
+        return _.all( _result );
       } else if( _.isArray( _condition ) ){
         return _.include( _condition, item.get( key ) )
       } else{ 
