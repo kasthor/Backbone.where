@@ -73,4 +73,40 @@
     ok( _(_test).all( function(m){ return m.get("a") != 3 } ) );
   });
 
+  test("can eval .LT. condition", function(){
+    var _test = collection.where({ b: { $lt: 3 } });
+
+    ok( _test.length > 0 );
+    ok( _(_test).all( function(m){ return m.get("b") < 3 } ) );
+  });
+
+  test("can eval .LTE. condition", function(){
+    var _test = collection.where({ b: { $lte: 3 } });
+
+    ok( _test.length > 0 );
+    ok( _(_test).all( function(m){ return m.get("b") <= 3 } ) );
+  });
+
+  test("can eval .GT. condition", function(){
+    var _test = collection.where({ b: { $gt: 2 } });
+
+    ok( _test.length > 0 );
+    ok( _(_test).all( function(m){ return m.get("b") > 2 } ) );
+    console.log( _test) 
+  });
+
+  test("can eval .GTE. condition", function(){
+    var _test = collection.where({ b: { $gte: 2 } });
+
+    ok( _test.length > 0 );
+    ok( _(_test).all( function(m){ return m.get("b") >= 2 } ) );
+  });
+
+  test("can eval .NE. condition", function(){
+    var _test = collection.where({ b: { $ne: 2 } });
+
+    ok( _test.length > 0 );
+    ok( _(_test).all( function(m){ return m.get("b") != 2 } ) );
+  });
+
 }).call(this);
